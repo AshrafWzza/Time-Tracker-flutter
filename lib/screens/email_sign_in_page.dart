@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'email_sign_in_form.dart';
-import 'package:time_tracker_flutter/services/auth.dart';
+import 'package:time_tracker_flutter/screens/email_sign_in_form_bloc.dart';
 
 class EmailSignInPage extends StatelessWidget {
   // EmailSignInPage({required this.auth});
@@ -15,15 +13,14 @@ class EmailSignInPage extends StatelessWidget {
         title: const Text('Login'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        // solve overflow problem
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-              elevation: 5.0,
-              shadowColor: Colors.lightGreen,
-              child: EmailSignInForm()),
-        ),
+      body: //SingleChildScrollView( REmove it
+          // solve overflow problem
+          Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+            elevation: 5.0,
+            shadowColor: Colors.lightGreen,
+            child: EmailSignInFormBloc.create(context)),
       ),
     );
   }

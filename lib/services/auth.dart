@@ -9,10 +9,8 @@ abstract class AuthBase {
   Future<User> signInanonymously();
   Future<User> signInwithGoogle();
   Future<User> signInWithFacebook();
-  Future<User> signInWithEmail(TextEditingController emailController,
-      TextEditingController passwordController);
-  Future<User> RegisterWithEmail(TextEditingController emailController,
-      TextEditingController passwordController);
+  Future<User> signInWithEmail(String email, String password);
+  Future<User> RegisterWithEmail(String email, String password);
 
   Future<void> signOut();
 }
@@ -26,21 +24,38 @@ class Auth implements AuthBase {
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
   //authStateChanges: a firebase Auth that Notifies about changes to the user's sign-in state (such as sign-in or sign-out)
   @override
-  Future<User> signInWithEmail(TextEditingController emailController,
-      TextEditingController passwordController) async {
+  // Future<User> signInWithEmail(TextEditingController emailController,
+  //     TextEditingController passwordController) async {
+  //   final userCerdentials = await _firebaseAuth.signInWithEmailAndPassword(
+  //       email: emailController.text, password: passwordController.text);
+  //   // Auth accepts only string so use _emailController.toString() XXXXXXXX
+  //   //                             use _emailController.text
+  //   // onPressed: () => _signInWithEmail(context, email!, password!),
+  //   return userCerdentials.user!;
+  // }
+  Future<User> signInWithEmail(String email, String password) async {
     final userCerdentials = await _firebaseAuth.signInWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
+        email: email, password: password);
     // Auth accepts only string so use _emailController.toString() XXXXXXXX
     //                             use _emailController.text
     // onPressed: () => _signInWithEmail(context, email!, password!),
     return userCerdentials.user!;
   }
 
+  // @override
+  // Future<User> RegisterWithEmail(TextEditingController emailController,
+  //     TextEditingController passwordController) async {
+  //   final userCerdentials = await _firebaseAuth.createUserWithEmailAndPassword(
+  //       email: emailController.text, password: passwordController.text);
+  //   // Auth accepts only string so use _emailController.toString() XXXXXXXX
+  //   //                             use _emailController.text
+  //   // onPressed: () => _signInWithEmail(context, email!, password!),
+  //   return userCerdentials.user!;
+  // }
   @override
-  Future<User> RegisterWithEmail(TextEditingController emailController,
-      TextEditingController passwordController) async {
+  Future<User> RegisterWithEmail(String email, String password) async {
     final userCerdentials = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
+        email: email, password: password);
     // Auth accepts only string so use _emailController.toString() XXXXXXXX
     //                             use _emailController.text
     // onPressed: () => _signInWithEmail(context, email!, password!),
