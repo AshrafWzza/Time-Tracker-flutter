@@ -47,6 +47,7 @@ class Auth implements AuthBase {
     return userCerdentials.user!;
   }
 
+  @override
   Future<User> signInanonymously() async {
     final userCerdentials = await _firebaseAuth.signInAnonymously();
     return userCerdentials.user!;

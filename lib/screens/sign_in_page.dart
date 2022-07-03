@@ -12,8 +12,9 @@ class SignInPage extends StatelessWidget {
   const SignInPage({Key? key, required this.bloc}) : super(key: key);
   final SignInBloc bloc;
   static Widget create(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Provider<SignInBloc>(
-      create: (_) => SignInBloc(),
+      create: (_) => SignInBloc(auth: auth),
       dispose: (_, bloc) => bloc.dispose(),
       child: Consumer<SignInBloc>(
           builder: (_, bloc, __) => SignInPage(bloc: bloc)),
@@ -36,49 +37,55 @@ class SignInPage extends StatelessWidget {
   Future<void> _signInanonymously(BuildContext context) async {
     try {
       //setState(() {_isLoading = true;});
-      bloc.setIsLoading(true);
-      final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.signInanonymously();
+      // bloc.setIsLoading(true);
+      // final auth = Provider.of<AuthBase>(context, listen: false);
+      // await auth.signInanonymously();
+      await bloc.signInanonymously();
       //setState(() {_isLoading = false;});
       //Use Finally to make it run even if there is error
     } on Exception catch (e) {
       _showSignInError(context, e);
-    } finally {
-      //setState(() {_isLoading = false;});
-      bloc.setIsLoading(false);
     }
+    //finally {
+    //   //setState(() {_isLoading = false;});
+    //   bloc.setIsLoading(false);
+    // }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
       //setState(() {_isLoading = true;});
-      bloc.setIsLoading(true);
-      final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.signInwithGoogle();
+      // bloc.setIsLoading(true);
+      // final auth = Provider.of<AuthBase>(context, listen: false);
+      // await auth.signInwithGoogle();
+      await bloc.signInwithGoogle();
     } on Exception catch (e) {
       _showSignInError(context, e);
-    } finally {
-      //setState(() {_isLoading = false;});
-      bloc.setIsLoading(false);
     }
+    // finally {
+    //   //setState(() {_isLoading = false;});
+    //   bloc.setIsLoading(false);
+    // }
   }
 
   Future<void> _signInWithFacebook(BuildContext context) async {
     try {
       //setState(() {_isLoading = true;});
-      bloc.setIsLoading(true);
-      final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.signInWithFacebook();
+      // bloc.setIsLoading(true);
+      // final auth = Provider.of<AuthBase>(context, listen: false);
+      // await auth.signInWithFacebook();
+      await bloc.signInWithFacebook();
     } on Exception catch (e) {
       _showSignInError(context, e);
-    } finally {
-      //setState(() {_isLoading = false;});
-      bloc.setIsLoading(false);
     }
+    // finally {
+    //   //setState(() {_isLoading = false;});
+    //   bloc.setIsLoading(false);
+    // }
   }
 
   void _SignInWithEmail(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    // final auth = Provider.of<AuthBase>(context, listen: false);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => EmailSignInPage()));
   }

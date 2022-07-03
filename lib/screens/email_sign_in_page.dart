@@ -8,7 +8,7 @@ class EmailSignInPage extends StatelessWidget {
   // final AuthBase auth;
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    // final auth = Provider.of<AuthBase>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(

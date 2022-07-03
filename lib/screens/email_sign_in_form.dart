@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/components/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
 import 'package:time_tracker_flutter/services/validation.dart';
-import 'package:time_tracker_flutter/components/show_alert_dialog.dart';
 
 // To Toggle between signIn & Register
 enum EmailSignInFormType { signIn, register }
@@ -214,7 +213,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    // final auth = Provider.of<AuthBase>(context, listen: false);
     // Spinner while waiting
     return ModalProgressHUD(
       inAsyncCall: _isLoading,
