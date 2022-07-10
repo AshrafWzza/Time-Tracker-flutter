@@ -20,6 +20,7 @@ class SignInBloc {
       _setIsLoading(true);
       return await signInMethod();
     } catch (e) {
+      _setIsLoading(false); // Mandatory/ example:U decline, changed your mind
       rethrow;
     }
     // set isLoading to false only when successed,

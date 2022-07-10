@@ -1,6 +1,8 @@
+import 'package:time_tracker_flutter/services/validation.dart';
+
 enum EmailSignInFormType { signIn, register }
 
-class EmailSignInModel {
+class EmailSignInModel with EmailAndPasswordValidators {
   EmailSignInModel(
       {this.email = '',
       this.password = '',
@@ -13,6 +15,28 @@ class EmailSignInModel {
   final EmailSignInFormType formType;
   final bool isLoading;
   final bool submitted;
+  String get primaryText {
+    return formType == EmailSignInFormType.signIn ? 'Sign In' : 'Register';
+  }
+
+  String? get secondaryText {
+    return formType == EmailSignInFormType.signIn
+        ? 'Need an account?  '
+        : 'Already have an account?  ';
+  }
+
+  String? get thirdText {
+    return formType == EmailSignInFormType.signIn ? 'Register' : 'Sign in';
+  }
+
+  bool get validateEmailNotNull {
+    return emailValidator.isValid(email);
+  }
+
+  bool get validatePasswordNotNull {
+    return passwordValidator.isValid(password);
+  }
+
   EmailSignInModel copyWith({
     String? email,
     String? password,

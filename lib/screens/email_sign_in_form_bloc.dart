@@ -160,16 +160,16 @@ class _EmailSignInFormBlocState extends State<EmailSignInFormBloc> {
 
   List<Widget> _buildChildren(EmailSignInModel model) {
     // To Toggle between signIn & Register
-    final primaryText =
-        model.formType == EmailSignInFormType.signIn ? 'Sign In' : 'Register';
-    final secondaryText = model.formType == EmailSignInFormType.signIn
-        ? 'Need an account?  '
-        : 'Already have an account?  ';
-    final thirdText =
-        model.formType == EmailSignInFormType.signIn ? 'Register' : 'Sign in';
-    bool validateEmailNotNull = widget.emailValidator.isValid(model.email);
-    bool validatePasswordNotNull =
-        widget.passwordValidator.isValid(model.password);
+    // final primaryText =
+    //     model.formType == EmailSignInFormType.signIn ? 'Sign In' : 'Register';
+    // final secondaryText = model.formType == EmailSignInFormType.signIn
+    //     ? 'Need an account?  '
+    //     : 'Already have an account?  ';
+    // final thirdText =
+    //     model.formType == EmailSignInFormType.signIn ? 'Register' : 'Sign in';
+    // bool validateEmailNotNull = widget.emailValidator.isValid(model.email);
+    // bool validatePasswordNotNull =
+    //     widget.passwordValidator.isValid(model.password);
 
     return [
       TextField(
@@ -178,7 +178,7 @@ class _EmailSignInFormBlocState extends State<EmailSignInFormBloc> {
         decoration: InputDecoration(
             labelText: 'Email',
             hintText: 'example@example.com',
-            errorText: model.submitted && !validateEmailNotNull
+            errorText: model.submitted && !model.validateEmailNotNull
                 ? 'Email Can\'t be empty'
                 : null),
         enabled: model.isLoading == false,
@@ -198,12 +198,12 @@ class _EmailSignInFormBlocState extends State<EmailSignInFormBloc> {
         decoration: InputDecoration(
           labelText: 'Password',
           hintText: 'Enter Your Password',
-          errorText: model.submitted && !validatePasswordNotNull
+          errorText: model.submitted && !model.validatePasswordNotNull
               ? 'Password Can\'t be empty'
               : null,
           enabled: model.isLoading == false,
         ),
-        textInputAction: TextInputAction.done,
+        textInputAction: TextInputAction.go,
         // onChanged: (password) => setState(() {}), // for errorText
         // onChanged: (password) => widget.bloc.updateWith(password: password),
         onChanged: widget.bloc.updatePassword,
@@ -220,8 +220,8 @@ class _EmailSignInFormBlocState extends State<EmailSignInFormBloc> {
         //     ? _signInWithEmail(_emailController, _passwordController)
         //     : _registerWithEmail(_emailController, _passwordController),
         onPressed: () {
-          if (validateEmailNotNull &&
-              validatePasswordNotNull &&
+          if (model.validateEmailNotNull &&
+              model.validatePasswordNotNull &&
               model.isLoading == false) {
             // setState(() {
             //   _submittedBefore = true;
@@ -245,16 +245,17 @@ class _EmailSignInFormBlocState extends State<EmailSignInFormBloc> {
         // Auth accepts only string so use _emailController.toString() XXXXXXXX
         //                             use _emailController.text
         // onPressed: () => _signInWithEmail(context, email!, password!),
-        child: Text(primaryText),
+        child: Text(model.primaryText),
       ),
       SizedBox(height: 8.0),
       Center(
         child: RichText(
           text: TextSpan(children: [
             TextSpan(
-                text: secondaryText, style: TextStyle(color: Colors.black54)),
+                text: model.secondaryText,
+                style: TextStyle(color: Colors.black54)),
             TextSpan(
-              text: thirdText,
+              text: model.thirdText,
               style: TextStyle(color: Colors.blue),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
