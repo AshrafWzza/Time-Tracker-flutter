@@ -5,19 +5,28 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/components/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter/screens/email_sign_in_page.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
-import 'package:time_tracker_flutter/blocs/sign_in_bloc.dart';
+import 'package:time_tracker_flutter/blocs/sign_in_manager.dart';
 
 class SignInPage extends StatelessWidget {
   //SignInPage({required this.bloc});
-  const SignInPage({Key? key, required this.bloc}) : super(key: key);
-  final SignInBloc bloc;
+  const SignInPage({Key? key, required this.manager, required this.isLoading})
+      : super(key: key);
+  final SignInManager manager;
+  final bool isLoading;
   static Widget create(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
-    return Provider<SignInBloc>(
-      create: (_) => SignInBloc(auth: auth),
-      child: Consumer<SignInBloc>(
-          builder: (_, bloc, __) => SignInPage(bloc: bloc)),
-      dispose: (_, bloc) => bloc.dispose(),
+    return ChangeNotifierProvider<ValueNotifier<bool>>(
+      create: (_) => ValueNotifier(false),
+      child: Consumer<ValueNotifier<bool>>(
+        builder: (_, isLoading, __) => Provider<SignInManager>(
+          create: (_) => SignInManager(auth: auth, isLoading: isLoading),
+          child: Consumer<SignInManager>(
+              builder: (_, bloc, __) =>
+                  SignInPage(manager: bloc, isLoading: isLoading.value)),
+          //isLoading.value isLoading.value
+          // dispose: (_, bloc) => bloc.dispose(),
+        ),
+      ),
     );
   }
 
@@ -40,7 +49,7 @@ class SignInPage extends StatelessWidget {
       // bloc.setIsLoading(true);
       // final auth = Provider.of<AuthBase>(context, listen: false);
       // await auth.signInanonymously();
-      await bloc.signInanonymously();
+      await manager.signInanonymously();
       //setState(() {_isLoading = false;});
       //Use Finally to make it run even if there is error
     } on Exception catch (e) {
@@ -58,7 +67,7 @@ class SignInPage extends StatelessWidget {
       // bloc.setIsLoading(true);
       // final auth = Provider.of<AuthBase>(context, listen: false);
       // await auth.signInwithGoogle();
-      await bloc.signInwithGoogle();
+      await manager.signInwithGoogle();
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
@@ -74,7 +83,7 @@ class SignInPage extends StatelessWidget {
       // bloc.setIsLoading(true);
       // final auth = Provider.of<AuthBase>(context, listen: false);
       // await auth.signInWithFacebook();
-      await bloc.signInWithFacebook();
+      await manager.signInWithFacebook();
     } on Exception catch (e) {
       _showSignInError(context, e);
     }
@@ -98,16 +107,17 @@ class SignInPage extends StatelessWidget {
         title: const Text('Time Tracker'),
         centerTitle: true,
       ),
-      body: StreamBuilder<bool>(
-          stream: bloc.isLoadingStream,
-          initialData: false,
-          builder: (context, snapshot) {
-            return _buildContainer(context, snapshot.data!);
-          }),
+      // body: StreamBuilder<bool>(
+      //     stream: bloc.isLoadingStream,
+      //     initialData: false,
+      //     builder: (context, snapshot) {
+      //       return _buildContainer(context, snapshot.data!);
+      //     }),
+      body: _buildContainer(context),
     );
   }
 
-  Widget _buildContainer(BuildContext context, bool isLoading) {
+  Widget _buildContainer(BuildContext context) {
     return ModalProgressHUD(
       //Spinner After your Press any Button
       inAsyncCall: isLoading,
