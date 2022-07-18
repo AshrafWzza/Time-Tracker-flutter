@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker_flutter/components/show_exception_alert_dialog.dart';
+import 'package:time_tracker_flutter/home/models/job.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
 import 'package:time_tracker_flutter/components/show_alert_dialog.dart';
 
-class HomePage extends StatelessWidget {
+import '../services/database.dart';
+
+class JobsPage extends StatelessWidget {
   //final AuthBase auth;
   //final VoidCallback onSignOut; //CallBack //using StreamBuilder
   // const HomePage({Key? key, required this.auth /*required this.onSignOut*/
@@ -40,11 +45,22 @@ class HomePage extends StatelessWidget {
     }
   }
 
+  Future<void> _creatjob(BuildContext context) async {
+    try {
+      final database = Provider.of<Database>(context, listen: false);
+      await database.createJob(Job(name: 'Blogging', ratePerHour: 10));
+    } on FirebaseException catch (e) {
+      showExceptionAlertDialog(context,
+          title: 'Operation Failed', exception: e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('home'),
+        centerTitle: true,
+        title: Text('Jobs'),
         //title: Text('${auth.currentUser!.uid}'),
         actions: [
           TextButton(
@@ -56,6 +72,30 @@ class HomePage extends StatelessWidget {
           Text(' '), //Space as Right Padding
         ],
       ),
+      body: _buildContents(context),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add), onPressed: () => _creatjob(context)),
     );
+  }
+
+  Widget _buildContents(BuildContext context) {
+    final database = Provider.of<Database>(context, listen: false);
+    return StreamBuilder<List<Job>>(
+        stream: database.jobStream(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final jobs = snapshot.data!;
+            final children = jobs.map((job) => Text(job.name)).toList();
+            return ListView(
+              children: children,
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Errorrr'));
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
   }
 }

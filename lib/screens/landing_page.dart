@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_tracker_flutter/screens/home_page.dart';
+import 'package:time_tracker_flutter/home/jobs_page.dart';
 import 'package:time_tracker_flutter/screens/sign_in_page.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
+import 'package:time_tracker_flutter/services/database.dart';
 
 class LandingPage extends StatelessWidget {
   // final AuthBase auth;
@@ -33,11 +34,17 @@ class LandingPage extends StatelessWidget {
         stream: auth.authStateChanges(), //StreamSubscription Not StreController
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
+            // final   user = snapshot.data;
             final user = snapshot.data;
+            // as User as User as User
             if (user == null) {
               return SignInPage.create(context); //Mandatory For Blocs
+
             }
-            return HomePage();
+            return Provider<Database>(
+                //create: (_) => FirestoreDatabase(uid: user.uid),
+                create: (_) => FirestoreDatabase(uid: auth.currentUser!.uid),
+                child: JobsPage());
           }
           return Scaffold(
             body: Center(
