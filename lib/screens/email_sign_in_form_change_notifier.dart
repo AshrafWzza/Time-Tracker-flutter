@@ -25,7 +25,7 @@ class EmailSignInFormChangeNotifier extends StatefulWidget
     return ChangeNotifierProvider<EmailSignInChangeModel>(
       create: (_) => EmailSignInChangeModel(auth: auth),
       child: Consumer<EmailSignInChangeModel>(
-        builder: (_, bloc, __) => EmailSignInFormChangeNotifier(model: bloc),
+        builder: (_, model, __) => EmailSignInFormChangeNotifier(model: model),
       ),
     );
   }
