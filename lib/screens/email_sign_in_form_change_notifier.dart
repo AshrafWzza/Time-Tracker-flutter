@@ -147,7 +147,7 @@ class _EmailSignInFormChangeNotifierState
           isLoading: false); //POP up emailsigninpage so homePage show
     } catch (e) {
       model.updateWith(isLoading: false);
-      print(e.toString());
+      debugPrint(e.toString());
     }
 
     // onSignIn(user); //CallBack //using StreamBuilder

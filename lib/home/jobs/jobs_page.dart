@@ -2,11 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/components/show_exception_alert_dialog.dart';
+import 'package:time_tracker_flutter/home/jobs/edit_job_page.dart';
+import 'package:time_tracker_flutter/home/jobs/empty_content.dart';
+import 'package:time_tracker_flutter/home/jobs/job_list_tile.dart';
 import 'package:time_tracker_flutter/home/models/job.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
 import 'package:time_tracker_flutter/components/show_alert_dialog.dart';
 
-import '../services/database.dart';
+import '../../services/database.dart';
 
 class JobsPage extends StatelessWidget {
   //final AuthBase auth;
@@ -45,15 +48,15 @@ class JobsPage extends StatelessWidget {
     }
   }
 
-  Future<void> _creatjob(BuildContext context) async {
-    try {
-      final database = Provider.of<Database>(context, listen: false);
-      await database.createJob(Job(name: 'Blogging', ratePerHour: 10));
-    } on FirebaseException catch (e) {
-      showExceptionAlertDialog(context,
-          title: 'Operation Failed', exception: e);
-    }
-  }
+  // Future<void> _creatjob(BuildContext context) async {
+  //   try {
+  //     final database = Provider.of<Database>(context, listen: false);
+  //     await database.createJob(Job(name: 'Blogging', ratePerHour: 10));
+  //   } on FirebaseException catch (e) {
+  //     showExceptionAlertDialog(context,
+  //         title: 'Operation Failed', exception: e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,8 @@ class JobsPage extends StatelessWidget {
       ),
       body: _buildContents(context),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add), onPressed: () => _creatjob(context)),
+          child: Icon(Icons.add), onPressed: () => EditJobPage.show(context)),
+      //Not pass job -> show(context,jobxxxx) to become AddPage
     );
   }
 
@@ -85,11 +89,28 @@ class JobsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final jobs = snapshot.data!;
-            final children = jobs.map((job) => Text(job.name)).toList();
-            return ListView(
-              children: children,
-            );
+            if (jobs.isNotEmpty) {
+              final children = jobs
+                  .map((job) => JobListTile(
+                      job: job,
+                      onTap: () => EditJobPage.show(context, job: job)))
+                  .toList(); // pass job -> show(context,job) to become EditPage
+              // MAndatory tolist()
+              return ListView(
+                children: children,
+              );
+              // OR could use ListView.builder
+              // return ListView.builder(
+              //   itemCount: children.length,
+              //   itemBuilder: (context, index) {
+              //     return children[index];
+              //   },
+              // );
+            }
+            return EmptyContent();
           }
+          //if(!snapshot.hasData){return EmptyContent();} - use if (jobs.isNotEmpty) because
+          //it show Emptycontent at first while fetching data from firebase then show listview
           if (snapshot.hasError) {
             return Center(child: Text('Errorrr'));
           }
