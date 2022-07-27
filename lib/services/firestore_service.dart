@@ -5,17 +5,27 @@ class FirestoreService {
   static final instance = FirestoreService._();
   Future<void> setData(
       {required String path, required Map<String, dynamic> data}) async {
-    final reference = FirebaseFirestore.instance.doc(path);
+    final reference =
+        FirebaseFirestore.instance.doc(path); //1 DocumentReference
     print('$path: $data');
     await reference.set(data);
+  }
+
+  Future<void> deleteData({required String path}) async {
+    final reference = FirebaseFirestore.instance.doc(path);
+    print('delete: $path');
+    await reference.delete();
   }
 
   Stream<List<T>> collectionStream<T>(
       {required String path,
       required T Function(Map<String, dynamic> data, String documentId)
           builder}) {
-    final reference = FirebaseFirestore.instance.collection(path);
-    // final snapshots = reference.orderBy('timeStamp').snapshots(); //BY timeStamp
+    final reference =
+        FirebaseFirestore.instance.collection(path); //2 CollectionReference
+    // final snapshots = reference
+    //     .orderBy('timeStamp', descending: true)
+    //     .snapshots(); //BY timeStamp
     //ToDo: orderBy
     final snapshots = reference.snapshots(); //BY timeStamp
     // snapshots.listen((snapshots) {

@@ -4,6 +4,8 @@ import 'api_path.dart';
 
 abstract class Database {
   Future<void> setJob(Job job);
+  Future<void> deleteJob(Job job);
+
   Stream<List<Job>> jobStream();
 }
 
@@ -24,6 +26,10 @@ class FirestoreDatabase implements Database {
         // edit or add if null - make DateTime.now().toIso8601String() inside editjobpage
         data: job.toMap(),
       );
+  @override
+  Future<void> deleteJob(Job job) =>
+      _service.deleteData(path: APIPATH.job(uid, job.id));
+
   @override
   Stream<List<Job>> jobStream() => _service.collectionStream(
         path: APIPATH.jobs(uid),
