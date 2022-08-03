@@ -13,15 +13,16 @@ class EditJobPage extends StatefulWidget {
   final Database database;
   final Job? job; //if you pass job then EditPage , if null ? it will be Addpage
   // {Job? job} optional & nullable
-  static Future<void> show(BuildContext context, {Job? job}) async {
+  //pass database insid show() to work inside edit job page and entries page
+  static Future<void> show(BuildContext context,
+      {Database? database, Job? job}) async {
     // {Job? job} optional & nullable
-    final database = Provider.of<Database>(context, listen: false);
     // error Couldn't find correct provider  above this page
-    // pass database explicitly from jobpage to addjobpage
+    // MAndatory pass database explicitly from jobpage to addjobpage
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => EditJobPage(
-          database: database,
+          database: database!,
           job: job, //Note if you forget job:job it will always be null
           // job is optional so if passed --> EditPage ,else AddPage
         ),
@@ -80,33 +81,46 @@ class _EditJobPageState extends State<EditJobPage> {
     if (_validateAndSaveForm()) {
       try {
         setState(() {
+          debugPrint('1111111111');
           _isLoading = true;
         });
+        debugPrint('222222');
         final jobs = await widget.database.jobStream().first; // MAndatory await
+        debugPrint('33333333');
         final allNames = jobs.map((job) => job.name).toList();
+        debugPrint('444444444');
         //error: while Editing exclude the name from allNames to avoid showAlertDialog(title: 'Name already used')
         //another solution way to wrap if (allNames.contains(_name)) with  if (widget.job == null) ->> while adding not editing
         if (widget.job != null) {
+          debugPrint('55555551');
           allNames.remove(widget.job!.name);
+          debugPrint('5555555');
         }
         if (allNames.contains(_name)) {
+          debugPrint('6666661');
           showAlertDialog(context,
               title: 'Name already used',
               content: 'please choose another name',
               defaultActionText: 'OK');
           setState(() {
+            debugPrint('777777777');
             _isLoading = false;
           });
         } else {
+          debugPrint('888888');
           //check if id null then (ADD) , if exist (Edit)
           final id = widget.job?.id ?? DateTime.now().toIso8601String();
           final job = Job(id: id, name: _name!, ratePerHour: _ratePerHour!);
+          debugPrint('999999');
           await widget.database.setJob(job);
+          debugPrint('10000000000000');
           _formKey.currentState!.reset();
           debugPrint('111111111111111');
           setState(() {
+            debugPrint('12122121212121212');
             _isLoading = false;
           });
+          Navigator.of(context).pop();
         }
       } on FirebaseException catch (e) {
         debugPrint('22222222222222222');
