@@ -13,13 +13,13 @@ class EditJobPage extends StatefulWidget {
   final Database database;
   final Job? job; //if you pass job then EditPage , if null ? it will be Addpage
   // {Job? job} optional & nullable
-  //pass database insid show() to work inside edit job page and entries page
+  //pass database inside show() to work inside edit job page and entries page
   static Future<void> show(BuildContext context,
       {Database? database, Job? job}) async {
     // {Job? job} optional & nullable
     // error Couldn't find correct provider  above this page
     // MAndatory pass database explicitly from jobpage to addjobpage
-    await Navigator.of(context).push(
+    await Navigator.of(context, rootNavigator: true).push(
       MaterialPageRoute(
         builder: (context) => EditJobPage(
           database: database!,

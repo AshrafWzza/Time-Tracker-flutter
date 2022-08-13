@@ -1,12 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class FirestoreService {
   FirestoreService._(); //Private Constructor - SingleTon
   static final instance = FirestoreService._();
   Future<void> setData(
       {required String path, required Map<String, dynamic> data}) async {
+    debugPrint('ooooooooooo');
+
     final reference =
         FirebaseFirestore.instance.doc(path); //1 DocumentReference
+    debugPrint('000000tttttttt');
+    debugPrint('${reference}');
+
     print('$path: $data');
     await reference.set(data);
   }

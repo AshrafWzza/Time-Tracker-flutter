@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/home/job_entries/entry_list_item.dart';
 import 'package:time_tracker_flutter/home/job_entries/entry_page.dart';
@@ -57,21 +55,28 @@ class JobEntriesPage extends StatelessWidget {
                 title: Text(jobName),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text(
-                      'Edit',
-                      style: TextStyle(fontSize: 18.0, color: Colors.white),
-                    ),
+                    // style: ButtonStyle(
+                    //     // fixedSize: MaterialStateProperty.all(Size(10.0, 10.0)),
+                    //     padding: MaterialStateProperty.all(EdgeInsets.all(0.0))),
+                    onPressed: () => EntryPage.show(
+                        context: context, database: database, job: job),
+                    //Not pass job -> show(context,jobxxxx) to become AddPage
+                    child: Icon(Icons.add, color: Colors.white, size: 16),
+                  ),
+                  TextButton(
+                    child: Icon(Icons.edit, color: Colors.white, size: 16),
+                    //MAndatory passing database  :
                     onPressed: () =>
                         EditJobPage.show(context, database: database, job: job),
                   ),
                 ],
               ),
               body: _buildContent(context, job),
-              floatingActionButton: FloatingActionButton(
-                child: const Icon(Icons.add),
-                onPressed: () => EntryPage.show(
-                    context: context, database: database, job: job),
-              ),
+              // floatingActionButton: FloatingActionButton(
+              //   child: const Icon(Icons.add),
+              //   onPressed: () => EntryPage.show(
+              //       context: context, database: database, job: job),
+              // ),
             );
           }
           return Center(

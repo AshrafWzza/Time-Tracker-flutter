@@ -4,13 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/components/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter/home/job_entries/job_entries_page.dart';
 import 'package:time_tracker_flutter/home/jobs/edit_job_page.dart';
-import 'package:time_tracker_flutter/home/jobs/empty_content.dart';
 import 'package:time_tracker_flutter/home/jobs/job_list_tile.dart';
 import 'package:time_tracker_flutter/home/jobs/list_item_builder.dart';
 import 'package:time_tracker_flutter/home/models/job.dart';
-import 'package:time_tracker_flutter/services/auth.dart';
-import 'package:time_tracker_flutter/components/show_alert_dialog.dart';
-
 import '../../services/database.dart';
 
 //Todo: Scroll down automatically to latest job after adding it
@@ -20,11 +16,13 @@ class JobsPage extends StatelessWidget {
   // const HomePage({Key? key, required this.auth /*required this.onSignOut*/
   //     })
   //     : super(key: key);
-  Future<void> _signOut(BuildContext context) async {
-    final auth = Provider.of<AuthBase>(context, listen: false);
-    await auth.signOut();
-    // onSignOut(); //CallBack //using StreamBuilder
-  }
+
+  // MOVE logout to Account Page
+  // Future<void> _signOut(BuildContext context) async {
+  //   final auth = Provider.of<AuthBase>(context, listen: false);
+  //   await auth.signOut();
+  //   // onSignOut(); //CallBack //using StreamBuilder
+  // }
 
   // Show Alert Dialog To confirm whether to signout or not
   // Future<void> _confirmSignOut(BuildContext context) async {
@@ -37,19 +35,21 @@ class JobsPage extends StatelessWidget {
   //     _signOut();
   //   }
   // }
-  Future<void> _confirmSignOut(BuildContext context) async {
-    // showAlertDialog return Future<bool>
-    // Mandatory await
-    final confirmAlert = await showAlertDialog(context,
-        title: 'LogOut',
-        content: 'Are You Sure You Want To LogOut?',
-        cancelActionText: 'cancel',
-        defaultActionText: 'LogOut');
-    // showAlertDialog return Future<bool>
-    if (confirmAlert == true) {
-      _signOut(context);
-    }
-  }
+
+  // MOVE logout to Account Page
+  // Future<void> _confirmSignOut(BuildContext context) async {
+  //   // showAlertDialog return Future<bool>
+  //   // Mandatory await
+  //   final confirmAlert = await showAlertDialog(context,
+  //       title: 'LogOut',
+  //       content: 'Are You Sure You Want To LogOut?',
+  //       cancelActionText: 'cancel',
+  //       defaultActionText: 'LogOut');
+  //   // showAlertDialog return Future<bool>
+  //   if (confirmAlert == true) {
+  //     _signOut(context);
+  //   }
+  // }
 
   Future<void> _delete(BuildContext context, Job job) async {
     try {
@@ -80,20 +80,31 @@ class JobsPage extends StatelessWidget {
         //title: Text('${auth.currentUser!.uid}'),
         actions: [
           TextButton(
-              onPressed: () => _confirmSignOut(context),
-              child: Text(
-                'Logout',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              )),
+            // style: ButtonStyle(
+            //     // fixedSize: MaterialStateProperty.all(Size(10.0, 10.0)),
+            //     padding: MaterialStateProperty.all(EdgeInsets.all(0.0))),
+            onPressed: () => EditJobPage.show(context,
+                database: Provider.of<Database>(context, listen: false)),
+            //Not pass job -> show(context,jobxxxx) to become AddPage
+            child: Icon(Icons.add, color: Colors.white, size: 16),
+          ),
+
+          // MOVE logout to Account Page
+          // TextButton(
+          //     onPressed: () => _confirmSignOut(context),
+          //     child: Text(
+          //       'Logout',
+          //       style: TextStyle(color: Colors.white, fontSize: 16),
+          //     )),
           Text(' '), //Space as Right Padding
         ],
       ),
       body: _buildContents(context),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => EditJobPage.show(context,
-              database: Provider.of<Database>(context, listen: false))),
-      //Not pass job -> show(context,jobxxxx) to become AddPage
+      // floatingActionButton: FloatingActionButton(
+      //     child: Icon(Icons.add),
+      //     onPressed: () => EditJobPage.show(context,
+      //         database: Provider.of<Database>(context, listen: false))),
+      // //Not pass job -> show(context,jobxxxx) to become AddPage
     );
   }
 

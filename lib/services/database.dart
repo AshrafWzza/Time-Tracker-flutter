@@ -1,4 +1,5 @@
 import 'package:time_tracker_flutter/services/firestore_service.dart';
+import '../home/models/account.dart';
 import '../home/models/entry.dart';
 import '../home/models/job.dart';
 import 'api_path.dart';
@@ -11,6 +12,8 @@ abstract class Database {
   Future<void> setEntry(Entry entry);
   Future<void> deleteEntry(Entry entry);
   Stream<List<Entry>> entriesStream({Job job});
+  Future<void> nameAccount(Account account);
+  Stream<Account> accountStreaming({required String accountId});
 }
 
 //job unique document Id
@@ -77,5 +80,17 @@ class FirestoreDatabase implements Database {
             : null,
         builder: (data, documentID) => Entry.fromMap(data, documentID),
         sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
+      );
+
+  @override
+  Future<void> nameAccount(Account account) => _service.setData(
+        path: APIPATH.account(uid),
+        data: account.toMap(),
+      );
+  @override
+  Stream<Account> accountStreaming({required String accountId}) =>
+      _service.documentStream(
+        path: APIPATH.account(uid),
+        builder: (data, documentId) => Account.fromMap(data),
       );
 }

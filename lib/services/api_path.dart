@@ -8,4 +8,6 @@ class APIPATH {
   // All depending on jobId not every query make jobId & $entryId
   static String entry(String uid, String jobId) => '/users/$uid/entries/$jobId';
   static String entries(String uid) => '/users/$uid/entries';
+  // static String account(String uid) => '/users/$uid/account/$uid';
+  static String account(String uid) => '/users/$uid/account/$uid';
 }
