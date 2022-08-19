@@ -160,13 +160,21 @@ class _EditAccountPageState extends State<EditAccountPage> {
   }
 
   List<Widget> _buildFormChildren() {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    //final auth = Provider.of<AuthBase>(context, listen: false);
 
     return [
       TextFormField(
         //initialValue: _name, this will make form.reset() not work after ADD new
         //so the solution is to check if only this is Editing no Adding
-        decoration: InputDecoration(labelText: 'Job Name'),
+        decoration: InputDecoration(labelText: 'New Name'),
+        validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
+        onSaved: (value) => _name = value,
+        textInputAction: TextInputAction.next,
+      ),
+      TextFormField(
+        //initialValue: _name, this will make form.reset() not work after ADD new
+        //so the solution is to check if only this is Editing no Adding
+        decoration: InputDecoration(labelText: 'New Image'),
         validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
         textInputAction: TextInputAction.next,
