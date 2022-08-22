@@ -30,7 +30,15 @@ void main() {
   });
 
   /// Can Use any locale AR-> Arabic IT->Italy
-
+  group('DayOfWeek - GB Locale', () {
+    setUp(() async {
+      Intl.defaultLocale = 'en_GB';
+      await initializeDateFormatting(Intl.defaultLocale!);
+    });
+    test('Sunday', () {
+      expect(Format.dayOfWeek(DateTime(2021, 8, 22)), 'Sun');
+    });
+  });
   group('DayOfWeek - AR Locale', () {
     setUp(() async {
       Intl.defaultLocale = 'ar_AR';
