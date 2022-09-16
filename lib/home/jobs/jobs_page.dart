@@ -11,6 +11,8 @@ import '../../services/database.dart';
 
 //Todo: Scroll down automatically to latest job after adding it
 class JobsPage extends StatelessWidget {
+  const JobsPage({Key? key}) : super(key: key);
+
   //final AuthBase auth;
   //final VoidCallback onSignOut; //CallBack //using StreamBuilder
   // const HomePage({Key? key, required this.auth /*required this.onSignOut*/
@@ -76,7 +78,7 @@ class JobsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Jobs'),
+        title: const Text('Jobs'),
         //title: Text('${auth.currentUser!.uid}'),
         actions: [
           TextButton(
@@ -86,7 +88,7 @@ class JobsPage extends StatelessWidget {
             onPressed: () => EditJobPage.show(context,
                 database: Provider.of<Database>(context, listen: false)),
             //Not pass job -> show(context,jobxxxx) to become AddPage
-            child: Icon(Icons.add, color: Colors.white, size: 16),
+            child: const Icon(Icons.add, color: Colors.white, size: 16),
           ),
 
           // MOVE logout to Account Page
@@ -96,7 +98,7 @@ class JobsPage extends StatelessWidget {
           //       'Logout',
           //       style: TextStyle(color: Colors.white, fontSize: 16),
           //     )),
-          Text(' '), //Space as Right Padding
+          const Text(' '), //Space as Right Padding
         ],
       ),
       body: _buildContents(context),

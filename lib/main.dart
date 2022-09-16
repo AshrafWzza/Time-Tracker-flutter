@@ -9,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize Firebase
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           // primarySwatch: Colors.green,
           // primaryColor: Colors.red,
         ),
-        home: LandingPage(),
+        home: const LandingPage(),
       ),
     );
   }

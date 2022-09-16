@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/home/home_page.dart';
-import 'package:time_tracker_flutter/home/jobs/jobs_page.dart';
 import 'package:time_tracker_flutter/screens/sign_in_page.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
 import 'package:time_tracker_flutter/services/database.dart';
 
 class LandingPage extends StatelessWidget {
+  const LandingPage({Key? key}) : super(key: key);
+
   // final AuthBase auth;
   // LandingPage({required this.auth});
   //USING STREAMBUILDER
@@ -45,9 +46,9 @@ class LandingPage extends StatelessWidget {
             return Provider<Database>(
                 //create: (_) => FirestoreDatabase(uid: user.uid),
                 create: (_) => FirestoreDatabase(uid: auth.currentUser!.uid),
-                child: HomePage());
+                child: const HomePage());
           }
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),

@@ -12,7 +12,8 @@ import 'package:time_tracker_flutter/components/show_exception_alert_dialog.dart
 import 'package:time_tracker_flutter/services/database.dart';
 
 class JobEntriesPage extends StatelessWidget {
-  const JobEntriesPage({required this.database, required this.job});
+  const JobEntriesPage({Key? key, required this.database, required this.job})
+      : super(key: key);
   final Database database;
   final Job job;
 
@@ -61,10 +62,11 @@ class JobEntriesPage extends StatelessWidget {
                     onPressed: () => EntryPage.show(
                         context: context, database: database, job: job),
                     //Not pass job -> show(context,jobxxxx) to become AddPage
-                    child: Icon(Icons.add, color: Colors.white, size: 16),
+                    child: const Icon(Icons.add, color: Colors.white, size: 16),
                   ),
                   TextButton(
-                    child: Icon(Icons.edit, color: Colors.white, size: 16),
+                    child:
+                        const Icon(Icons.edit, color: Colors.white, size: 16),
                     //MAndatory passing database  :
                     onPressed: () =>
                         EditJobPage.show(context, database: database, job: job),
@@ -79,7 +81,7 @@ class JobEntriesPage extends StatelessWidget {
               // ),
             );
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         });

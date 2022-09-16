@@ -7,6 +7,7 @@ import '../../components/show_alert_dialog.dart';
 import '../../services/auth.dart';
 import '../../services/database.dart';
 
+//ToDo: auto create account page after new register
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
   Future<void> _signOut(BuildContext context) async {
@@ -42,7 +43,7 @@ class AccountPage extends StatelessWidget {
             final accountName = account!.name;
             return Scaffold(
               appBar: AppBar(
-                title: Text('Account'),
+                title: const Text('Account'),
                 actions: [
                   TextButton(
                     // style: ButtonStyle(
@@ -52,12 +53,12 @@ class AccountPage extends StatelessWidget {
                         database:
                             Provider.of<Database>(context, listen: false)),
                     //Not pass job -> show(context,jobxxxx) to become AddPage
-                    child: Text('Edit',
+                    child: const Text('Edit',
                         style: TextStyle(color: Colors.white, fontSize: 16)),
                   ),
                   TextButton(
                       onPressed: () => _confirmSignOut(context),
-                      child: Text(
+                      child: const Text(
                         'Logout',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       )),
@@ -66,7 +67,7 @@ class AccountPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Divider(),
+                        const Divider(),
                         const SizedBox(width: double.infinity),
                         Avatar(photoUrl: auth.currentUser!.photoURL),
                         const SizedBox(height: 5.0),
@@ -77,7 +78,7 @@ class AccountPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    preferredSize: Size.fromHeight(130)),
+                    preferredSize: const Size.fromHeight(130)),
               ),
               backgroundColor: Colors.red[400],
             );

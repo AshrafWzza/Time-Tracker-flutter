@@ -22,9 +22,9 @@ class _HomePageState extends State<HomePage> {
   };
   Map<TabItem, WidgetBuilder> get widgetBuilder {
     return {
-      TabItem.jobs: (_) => JobsPage(),
+      TabItem.jobs: (_) => const JobsPage(),
       TabItem.entries: (context) => EntriesPage.create(context),
-      TabItem.account: (_) => AccountPage(),
+      TabItem.account: (_) => const AccountPage(),
     };
   }
 

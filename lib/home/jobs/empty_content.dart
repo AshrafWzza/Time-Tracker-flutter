@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class EmptyContent extends StatelessWidget {
   final String title;
   final String message;
-  EmptyContent({this.title = 'Nothing here', this.message = 'Add a new item'});
+  const EmptyContent(
+      {Key? key, this.title = 'Nothing here', this.message = 'Add a new item'})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +15,11 @@ class EmptyContent extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 32.0, color: Colors.black54),
+            style: const TextStyle(fontSize: 32.0, color: Colors.black54),
           ),
           Text(
             message,
-            style: TextStyle(fontSize: 16.0, color: Colors.black54),
+            style: const TextStyle(fontSize: 16.0, color: Colors.black54),
           ),
         ],
       ),

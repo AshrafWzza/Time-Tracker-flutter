@@ -14,6 +14,8 @@ import 'email_sign_in_change_model.dart';
 // with EmailAndPasswordValidators as Mixin for Validation
 class EmailSignInFormStateful extends StatefulWidget
     with EmailAndPasswordValidators {
+  EmailSignInFormStateful({Key? key}) : super(key: key);
+
   // EmailSignInForm({
   //   required this.auth,
   // });
@@ -87,7 +89,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
       TextEditingController passwordController) async {
     try {
       final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.RegisterWithEmail(
+      await auth.registerWithEmail(
           emailController.text, passwordController.text);
 
       //Navigator.pop(context);  this way is so Tedious, you have to pass context as argument
@@ -165,7 +167,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
             ? _signInWithEmail(_emailController, _passwordController)
             : _registerWithEmail(_emailController, _passwordController),
       ),
-      SizedBox(height: 8.0),
+      const SizedBox(height: 8.0),
       ElevatedButton(
         // Determine whether signIn or Register
         // onPressed: () => _fromType == EmailSignInFormType.signIn
@@ -196,15 +198,16 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
         // onPressed: () => _signInWithEmail(context, email!, password!),
         child: Text(primaryText),
       ),
-      SizedBox(height: 8.0),
+      const SizedBox(height: 8.0),
       Center(
         child: RichText(
           text: TextSpan(children: [
             TextSpan(
-                text: secondaryText, style: TextStyle(color: Colors.black54)),
+                text: secondaryText,
+                style: const TextStyle(color: Colors.black54)),
             TextSpan(
               text: thirdText,
-              style: TextStyle(color: Colors.blue),
+              style: const TextStyle(color: Colors.blue),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   // disable button if while loading
@@ -224,7 +227,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
     return ModalProgressHUD(
       inAsyncCall: _isLoading,
       child: Padding(
-        padding: EdgeInsets.all(18.0),
+        padding: const EdgeInsets.all(18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:time_tracker_flutter/services/validation.dart';
-import 'package:time_tracker_flutter/screens/email_sign_in_model.dart';
-
 import '../services/auth.dart';
 
 enum EmailSignInFormType { signIn, register }
@@ -96,7 +94,7 @@ class EmailSignInChangeModel extends ChangeNotifier
       email,
       password) async {
     try {
-      await auth.RegisterWithEmail(email, password);
+      await auth.registerWithEmail(email, password);
       //Navigator.pop(context);  this way is so Tedious, you have to pass context as argument
     } catch (e) {
       rethrow;

@@ -1,7 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:time_tracker_flutter/home/job_entries/date_time_picker.dart';
 import 'package:time_tracker_flutter/home/job_entries/format.dart';
 import 'package:time_tracker_flutter/home/models/entry.dart';
@@ -10,7 +8,9 @@ import 'package:time_tracker_flutter/components/show_exception_alert_dialog.dart
 import 'package:time_tracker_flutter/services/database.dart';
 
 class EntryPage extends StatefulWidget {
-  const EntryPage({required this.database, required this.job, this.entry});
+  const EntryPage(
+      {Key? key, required this.database, required this.job, this.entry})
+      : super(key: key);
   final Database database;
   final Job job;
   final Entry? entry;
@@ -91,7 +91,7 @@ class _EntryPageState extends State<EntryPage> {
           TextButton(
             child: Text(
               widget.entry != null ? 'Update' : 'Create',
-              style: TextStyle(fontSize: 18.0, color: Colors.white),
+              style: const TextStyle(fontSize: 18.0, color: Colors.white),
             ),
             onPressed: () => _setEntryAndDismiss(context),
           )
@@ -99,16 +99,16 @@ class _EntryPageState extends State<EntryPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildStartDate(),
               _buildEndDate(),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               _buildDuration(),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               _buildComment(),
             ],
           ),
@@ -145,7 +145,7 @@ class _EntryPageState extends State<EntryPage> {
       children: <Widget>[
         Text(
           'Duration: $durationFormatted',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -158,11 +158,11 @@ class _EntryPageState extends State<EntryPage> {
       keyboardType: TextInputType.text,
       maxLength: 50,
       controller: TextEditingController(text: _comment),
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: 'Comment',
         labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
       ),
-      style: TextStyle(fontSize: 20.0, color: Colors.black),
+      style: const TextStyle(fontSize: 20.0, color: Colors.black),
       maxLines: null,
       onChanged: (comment) => _comment = comment,
       //no need to setState to update comment because TextEditingController(text: _comment)

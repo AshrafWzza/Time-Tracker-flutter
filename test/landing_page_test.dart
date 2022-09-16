@@ -26,7 +26,7 @@ void main() {
     await tester.pumpWidget(
       Provider<AuthBase>(
         create: (_) => mockAuth,
-        child: MaterialApp(
+        child: const MaterialApp(
           home: LandingPage(),
         ),
       ),

@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/home/models/account.dart';
 import '../../components/show_alert_dialog.dart';
 import '../../components/show_exception_alert_dialog.dart';
-import '../../services/auth.dart';
 import '../../services/database.dart';
 
 class EditAccountPage extends StatefulWidget {
@@ -120,11 +118,11 @@ class _EditAccountPageState extends State<EditAccountPage> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 2.0,
-        title: Text('Edit Accocunt'),
+        title: const Text('Edit Accocunt'),
         actions: [
           TextButton(
               onPressed: _submit,
-              child: Text('Save',
+              child: const Text('Save',
                   style: TextStyle(color: Colors.white, fontSize: 18.0)))
         ],
       ),
@@ -166,7 +164,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
       TextFormField(
         //initialValue: _name, this will make form.reset() not work after ADD new
         //so the solution is to check if only this is Editing no Adding
-        decoration: InputDecoration(labelText: 'New Name'),
+        decoration: const InputDecoration(labelText: 'New Name'),
         validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
         textInputAction: TextInputAction.next,
@@ -174,7 +172,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
       TextFormField(
         //initialValue: _name, this will make form.reset() not work after ADD new
         //so the solution is to check if only this is Editing no Adding
-        decoration: InputDecoration(labelText: 'New Image'),
+        decoration: const InputDecoration(labelText: 'New Image'),
         validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
         textInputAction: TextInputAction.next,

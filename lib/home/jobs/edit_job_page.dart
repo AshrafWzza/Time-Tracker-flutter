@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/components/show_alert_dialog.dart';
 import 'package:time_tracker_flutter/components/show_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter/home/models/job.dart';
@@ -143,7 +142,7 @@ class _EditJobPageState extends State<EditJobPage> {
         actions: [
           TextButton(
               onPressed: _submit,
-              child: Text('Save',
+              child: const Text('Save',
                   style: TextStyle(color: Colors.white, fontSize: 18.0)))
         ],
       ),
@@ -184,7 +183,7 @@ class _EditJobPageState extends State<EditJobPage> {
         //initialValue: _name, this will make form.reset() not work after ADD new
         //so the solution is to check if only this is Editing no Adding
         initialValue: widget.job != null ? _name : null,
-        decoration: InputDecoration(labelText: 'Job Name'),
+        decoration: const InputDecoration(labelText: 'Job Name'),
         validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
         textInputAction: TextInputAction.next,
@@ -194,9 +193,9 @@ class _EditJobPageState extends State<EditJobPage> {
         //initialValue:'$_ratePerHour', fill field with null value and the same for _name will make form.reset() not work
         initialValue:
             _ratePerHour != null && widget.job != null ? '$_ratePerHour' : null,
-        decoration: InputDecoration(labelText: 'Rate Per Hour'),
-        keyboardType:
-            TextInputType.numberWithOptions(signed: false, decimal: false),
+        decoration: const InputDecoration(labelText: 'Rate Per Hour'),
+        keyboardType: const TextInputType.numberWithOptions(
+            signed: false, decimal: false),
         validator: (value) =>
             value!.isNotEmpty ? null : 'Hours can\'t be empty',
         //onSaved: (value) => _ratePerHour = int.tryParse(value!) ?? 0,

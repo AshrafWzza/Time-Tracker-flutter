@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter/home/jobs/empty_content.dart';
 
@@ -22,15 +21,15 @@ class ListItemBuilder<T> extends StatelessWidget {
         // 2 Empty UI State
         return _buildList(items);
       } else {
-        return EmptyContent();
+        return const EmptyContent();
       }
     } else if (snapshot.hasError) {
-      return EmptyContent(
+      return const EmptyContent(
         title: 'Something went wrong',
         message: 'Can\'t load items right now',
       );
     }
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
@@ -39,7 +38,7 @@ class ListItemBuilder<T> extends StatelessWidget {
     return ListView.separated(
       //reverse: true,
       itemCount: items.length + 2,
-      separatorBuilder: (context, index) => Divider(height: 0.5),
+      separatorBuilder: (context, index) => const Divider(height: 0.5),
       itemBuilder: (context, index) {
         if (index == 0 || index == items.length + 1) // First & Last of list
         //index of last one always be list.length-1  -so items.length+2-1 =  items.length1

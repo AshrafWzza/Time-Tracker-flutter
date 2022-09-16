@@ -95,8 +95,8 @@ class SignInPage extends StatelessWidget {
 
   void _SignInWithEmail(BuildContext context) {
     // final auth = Provider.of<AuthBase>(context, listen: false);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EmailSignInPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const EmailSignInPage()));
   }
 
   @override
@@ -135,7 +135,7 @@ class SignInPage extends StatelessWidget {
                   color: Colors.black54),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             ElevatedButton(
               onPressed: () => _signInWithGoogle(context),
               child: Row(
@@ -143,24 +143,25 @@ class SignInPage extends StatelessWidget {
                   children: [
                     Image.asset('images/google-logo.png'),
                     //FractionallySizedBox(widthFactor: 0.1),
-                    Text('Sign In with Google',
+                    const Text('Sign In with Google',
                         style: TextStyle(
                           color: Colors.black,
                         )),
-                    SizedBox(width: 30.0),
+                    const SizedBox(width: 30.0),
                   ]),
               style: ButtonStyle(
                   shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
+                    const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30.0))),
                   ),
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
                   ),
                   elevation: MaterialStateProperty.all(5.0),
                   backgroundColor: MaterialStateProperty.all(Colors.white)),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             ElevatedButton(
               onPressed: () => _signInWithFacebook(context),
               child: Row(
@@ -168,30 +169,31 @@ class SignInPage extends StatelessWidget {
                   children: [
                     Image.asset('images/facebook-logo.png'),
                     //FractionallySizedBox(widthFactor: 0.1),
-                    Text('Sign In with Facebook',
+                    const Text('Sign In with Facebook',
                         style: TextStyle(
                           color: Colors.black,
                         )),
-                    SizedBox(width: 30.0),
+                    const SizedBox(width: 30.0),
                   ]),
               style: ButtonStyle(
                   shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
+                    const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30.0))),
                   ),
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
                   ),
                   elevation: MaterialStateProperty.all(5.0),
                   backgroundColor:
-                      MaterialStateProperty.all(Color(0xFF3f62a9))),
+                      MaterialStateProperty.all(const Color(0xFF3f62a9))),
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             ElevatedButton(
               onPressed: () => _SignInWithEmail(context),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
+                  children: const [
                     Opacity(
                       opacity: 0.0,
                       child: Icon(
@@ -209,17 +211,18 @@ class SignInPage extends StatelessWidget {
                   ]),
               style: ButtonStyle(
                   shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
+                    const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30.0))),
                   ),
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
                   ),
                   elevation: MaterialStateProperty.all(5.0),
                   backgroundColor: MaterialStateProperty.all(Colors.white)),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text('or',
                   style: TextStyle(color: Colors.black54),
                   textAlign: TextAlign.center),
@@ -227,7 +230,7 @@ class SignInPage extends StatelessWidget {
             ElevatedButton(
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
+                  children: const [
                     Opacity(
                       opacity: 0.0,
                       child: Icon(
@@ -245,11 +248,12 @@ class SignInPage extends StatelessWidget {
                   ]),
               style: ButtonStyle(
                   shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
+                    const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30.0))),
                   ),
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
                   ),
                   elevation: MaterialStateProperty.all(5.0),
                   backgroundColor: MaterialStateProperty.all(Colors.white)),

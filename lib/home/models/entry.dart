@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 //ToDo: use new feature CollectionGroups instead of subCollection
 class Entry {
   Entry({

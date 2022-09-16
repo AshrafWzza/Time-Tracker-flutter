@@ -217,7 +217,7 @@ class _EmailSignInFormChangeNotifierState
             ? _signInWithEmail()
             : _registerWithEmail(),
       ),
-      SizedBox(height: 8.0),
+      const SizedBox(height: 8.0),
       ElevatedButton(
         // Determine whether signIn or Register
         // onPressed: () => _fromType == EmailSignInFormType.signIn
@@ -251,16 +251,16 @@ class _EmailSignInFormChangeNotifierState
         // onPressed: () => _signInWithEmail(context, email!, password!),
         child: Text(model.primaryText),
       ),
-      SizedBox(height: 8.0),
+      const SizedBox(height: 8.0),
       Center(
         child: RichText(
           text: TextSpan(children: [
             TextSpan(
                 text: model.secondaryText,
-                style: TextStyle(color: Colors.black54)),
+                style: const TextStyle(color: Colors.black54)),
             TextSpan(
               text: model.thirdText,
-              style: TextStyle(color: Colors.blue),
+              style: const TextStyle(color: Colors.blue),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   // disable button if while loading
@@ -281,7 +281,7 @@ class _EmailSignInFormChangeNotifierState
     return ModalProgressHUD(
       inAsyncCall: model.isLoading,
       child: Padding(
-        padding: EdgeInsets.all(18.0),
+        padding: const EdgeInsets.all(18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,

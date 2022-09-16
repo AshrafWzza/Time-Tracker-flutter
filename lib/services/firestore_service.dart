@@ -11,7 +11,7 @@ class FirestoreService {
     final reference =
         FirebaseFirestore.instance.doc(path); //1 DocumentReference
     debugPrint('000000tttttttt');
-    debugPrint('${reference}');
+    debugPrint('$reference');
 
     print('$path: $data');
     await reference.set(data);
