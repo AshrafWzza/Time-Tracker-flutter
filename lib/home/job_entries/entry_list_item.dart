@@ -79,7 +79,7 @@ class EntryListItem extends StatelessWidget {
 
 class DismissibleEntryListItem extends StatelessWidget {
   const DismissibleEntryListItem({
-    required this.key,
+    required this.key, // Mandatory using Key
     required this.entry,
     required this.job,
     required this.onDismissed,
