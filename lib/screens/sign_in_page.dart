@@ -28,6 +28,17 @@ class SignInPage extends StatelessWidget {
         ),
       ),
     );
+    /*Or you can use ChangeNotifier instead of ValueNotifier
+    * 1- file SignInManager : make it extends ChangeNotifier
+    * make isLoading not required and bool instead of ValueNotifier<bool>
+      2- file SignInPage: ⏬⏬ down return ⬇⬇⏬⏬🔽
+    * 3-  ModalProgressHUD( inAsyncCall:model.isLoading */
+    /*return ChangeNotifierProvider<SignInManager>(
+      create: (_) => SignInManager(auth: auth),
+      child: Consumer<SignInManager>(
+        builder: (_, manager, __) => SignInPage(manager: manager),
+      ),
+    );*/
   }
 
 // SignInPage({

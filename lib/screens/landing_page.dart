@@ -33,7 +33,8 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
     return StreamBuilder(
-        stream: auth.authStateChanges(), //StreamSubscription Not StreController
+        stream:
+            auth.authStateChanges(), //StreamSubscription Not StreamController
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             // final   user = snapshot.data;
