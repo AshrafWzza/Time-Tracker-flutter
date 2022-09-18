@@ -7,6 +7,7 @@ Keep tracking your work...
 - Firebase
 - Provider
 - Listview Separated
+- RxDart
 ### ToDo
 - [ ] Notification
 - [ ] Dark Mode
